@@ -8,8 +8,8 @@
 (defn get-files-list [dir predicate]
   (let[files (.listFiles dir)
        dirs (filter #(.isDirectory %) files)]
-  (def  fl(future (vec (map #(.getName %) (filter #(and (.isFile %) (predicate (.getName %))) files)))))
-  (flatten (concat @fl (pmap #(get-files-list % predicate) dirs)))))
+  (def  fl(future (doall  (map #(.getName %) (filter #(and (.isFile %) (predicate (.getName %))) files)))))
+  (flatten (concat (pmap #(get-files-list % predicate) dirs) @fl))))
 
 
 (defn find-files [file-name path]
