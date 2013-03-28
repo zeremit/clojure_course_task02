@@ -3,9 +3,7 @@
   (:import java.io.File))
 
 (defn isMtch [pat name]
-  (let[pattern (re-pattern pat)]
-  (re-matches pattern name))
-  )
+  (re-matches (re-pattern pat) name))
 
 (defn get-files-list [fil dir predicate]
   (let[files (.listFiles dir)
