@@ -6,7 +6,8 @@
 (defn get-files-list [dir]
   (let[files (.listFiles dir)
        dirs (filter #(.isDirectory %) files)]
-  (map #(.getName %) (filter #(.isFile %) files))))
+  (def  fl(future (map #(.getName %) (filter #(.isFile %) files))))
+  (flatten (concat @fl (pmap #(get-files-list %) dirs)))))
 
 
 (defn find-files [file-name path]
