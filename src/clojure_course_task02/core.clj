@@ -9,7 +9,7 @@
   (let[allfiles (.listFiles dir)
        dirs (filter #(.isDirectory %) allfiles)
        files (filter #(.isFile %) allfiles)]
-  (def  fl(future (doall  (map #(.getName %) (filter #(predicate (.getName %)) files)))))
+  (def  fl(future   (map #(.getName %) (filter #(predicate (.getName %)) files))))
   (if (empty? dirs)
     @fl
     (flatten (concat (pmap #(get-files-list % predicate) dirs) @fl)))))
