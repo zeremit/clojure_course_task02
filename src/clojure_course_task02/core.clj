@@ -19,7 +19,7 @@
 (defn -main [file-name path]
   (if (or (nil? file-name)
           (nil? path))
-    (dorun(find-files "^core.+" "\\"))
+    (dorun(map println (find-files "^core.+" "./")))
     (do
       (println "Searching for " file-name " in " path "...")
       (dorun (map println (find-files file-name path))))))
