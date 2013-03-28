@@ -3,7 +3,7 @@
   (:import java.io.File))
 
 (defn isMatch [pat name]
-  (re-matches (re-pattern pat) name))
+  (re-matches pat name))
 
 (defn get-files-list [dir predicate]
   (let[files (.listFiles dir)
@@ -14,7 +14,7 @@
 
 (defn find-files [file-name path]
   "TODO: Implement searching for a file using his name as a regexp."
-  (get-files-list (File. path) (partial isMatch file-name)))
+  (get-files-list (File. path) (partial isMatch (re-pattern  file-name))))
 
 (defn usage []
   (println "Usage: $ run.sh file_name path"))
